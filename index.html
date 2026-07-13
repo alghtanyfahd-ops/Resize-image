@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Resize Image</title>
+
+<meta name="description" content="Resize Image is a fast and free image resizing tool for Pi Browser. Resize photos online while keeping high quality.">
+
+<meta name="theme-color" content="#6f3ff5">
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile.css">
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <h1>Resize Image</h1>
+
+    <p class="subtitle">
+        Fast & Easy Image Resizer
+    </p>
+
+</header>
+
+<main class="container">
+
+    <section class="card">
+
+        <h2>Select Image</h2>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*">
+
+        <div id="previewArea">
+
+            <img
+                id="preview"
+                alt="Preview">
+
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <h2>Resize</h2>
+
+        <div class="row">
+
+            <label>
+
+                Width
+
+                <input
+                    type="number"
+                    id="width"
+                    min="1">
+
+            </label>
+
+            <label>
+
+                Height
+
+                <input
+                    type="number"
+                    id="height"
+                    min="1">
+
+            </label>
+
+        </div>
+
+        <label class="checkbox">
+
+            <input
+                type="checkbox"
+                id="lockRatio"
+                checked>
+
+            Keep aspect ratio
+
+        </label>
+
+        <button id="resizeBtn">
+
+            Resize Image
+
+        </button>
+
+    </section>
+
+    <section class="card">
+
+        <h2>Download</h2>
+
+        <canvas
+            id="canvas"
+            style="display:none;"></canvas>
+
+        <button
+            id="downloadBtn"
+            disabled>
+
+            Download Image
+
+        </button>
+
+    </section>
+
+</main>
+
+<footer>
+
+    © 2026 Resize Image
+
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
