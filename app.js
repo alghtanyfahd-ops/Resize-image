@@ -231,27 +231,51 @@ function(){
 
 
 
-downloadBtn.addEventListener("click", function () {
+downloadBtn.addEventListener("click", async function () {
 
-    canvas.toBlob(function(blob) {
+    if (!canvas.width || !canvas.height) {
+        alert("Please resize the image first");
+        return;
+    }
 
-        const url = URL.createObjectURL(blob);
+    canvas.toBlob(async function(blob) {
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "resized-image.jpg";
+        try {
 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            const response = await fetch("/api/download", {
+                method: "POST",
+                body: blob
+            });
 
-        setTimeout(() => {
+            if (!response.ok) {
+                throw new Error("Download failed");
+            }
+
+            const fileBlob = await response.blob();
+
+            const url = URL.createObjectURL(fileBlob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "resized-image.jpg";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
             URL.revokeObjectURL(url);
-        }, 1000);
+
+        } catch (err) {
+
+            console.error(err);
+            alert("Download failed");
+
+        }
 
     }, "image/jpeg", 0.9);
 
 });
+
 
 window.enterApp = function(){
 
