@@ -231,32 +231,28 @@ function(){
 
 
 
-// تنزيل الصورة
+downloadBtn.addEventListener("click", function () {
 
-downloadBtn.addEventListener(
-"click",
-function(){
+    canvas.toBlob(function(blob) {
 
+        const url = URL.createObjectURL(blob);
 
-    const link =
-    document.createElement("a");
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "resized-image.jpg";
 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-    link.download =
-    "resized-image.jpg";
+        setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1000);
 
-
-    link.href =
-    canvas.toDataURL(
-        "image/jpeg",
-        0.9
-    );
-
-
-    link.click();
-
+    }, "image/jpeg", 0.9);
 
 });
+
 window.enterApp = function(){
 
     const login =
