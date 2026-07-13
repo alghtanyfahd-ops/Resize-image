@@ -1,1 +1,66 @@
+@media (max-width:768px){
 
+    .topbar{
+
+        padding:25px 15px;
+
+    }
+
+    .topbar h1{
+
+        font-size:30px;
+
+    }
+
+    .subtitle{
+
+        font-size:15px;
+
+    }
+
+    .container{
+
+        margin:15px auto;
+
+        padding:15px;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+        border-radius:14px;
+
+    }
+
+    .row{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    input[type="number"],
+    input[type="file"]{
+
+        font-size:16px;
+
+    }
+
+    button{
+
+        font-size:17px;
+
+        padding:14px;
+
+    }
+
+    #preview{
+
+        max-height:300px;
+
+    }
+
+}
