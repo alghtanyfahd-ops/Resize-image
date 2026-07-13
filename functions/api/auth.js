@@ -1,24 +1,27 @@
 export async function onRequest(context) {
-  if (context.request.method === "GET") {
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: "API is working"
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
-  }
-
   try {
+
+    if (context.request.method !== "POST") {
+      return new Response(
+        JSON.stringify({
+          error: "Method Not Allowed"
+        }),
+        {
+          status: 405,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+    }
+
     const { accessToken } = await context.request.json();
 
     if (!accessToken) {
       return new Response(
-        JSON.stringify({ error: "Missing access token" }),
+        JSON.stringify({
+          error: "Missing access token"
+        }),
         {
           status: 400,
           headers: {
@@ -36,15 +39,33 @@ export async function onRequest(context) {
 
     const data = await response.json();
 
-    return new Response(JSON.stringify(data), {
-      headers: {
-        "Content-Type": "application/json"
+    if (!response.ok) {
+      return new Response(JSON.stringify(data), {
+        status: response.status,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        user: data
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    });
+    );
 
   } catch (err) {
     return new Response(
-      JSON.stringify({ error: err.message }),
+      JSON.stringify({
+        success: false,
+        error: err.message
+      }),
       {
         status: 500,
         headers: {
