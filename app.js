@@ -281,36 +281,3 @@ window.enterApp = function(){
     }
 
 };
-window.loginAndEnter = function(){
-
-    Pi.authenticate(
-        ["username"],
-
-        function(auth){
-
-            console.log(
-                auth.user.username
-            );
-
-
-            localStorage.piUser =
-            auth.user.username;
-
-
-            enterApp();
-
-        },
-
-
-        function(error){
-
-            console.log(
-                "Pi Login Error",
-                error
-            );
-
-        }
-
-    );
-
-};
