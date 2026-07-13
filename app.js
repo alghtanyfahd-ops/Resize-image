@@ -257,3 +257,27 @@ function(){
 
 
 });
+window.enterApp = function(){
+
+    const login =
+    document.getElementById("loginPage");
+
+
+    const app =
+    document.getElementById("appPage");
+
+
+    if(login){
+
+        login.style.display="none";
+
+    }
+
+
+    if(app){
+
+        app.classList.remove("hidden");
+
+    }
+
+};
