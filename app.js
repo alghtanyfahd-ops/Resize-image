@@ -1,3 +1,51 @@
+<label>Image Format</label>
+
+<select id="imageFormat">
+
+    <option value="image/jpeg">
+        JPG
+    </option>
+
+    <option value="image/png">
+        PNG
+    </option>
+
+    <option value="image/webp">
+        WEBP
+    </option>
+
+</select>
+
+
+<label>Quality</label>
+
+<input
+type="range"
+id="quality"
+min="10"
+max="100"
+value="90">
+
+<div id="qualityValue">
+90%
+</div>
+
+
+<div id="imageInfo">
+
+    Original Size:
+    <span id="originalSize">
+        0 KB
+    </span>
+
+    <br>
+
+    New Size:
+    <span id="newSize">
+        0 KB
+    </span>
+
+</div>
 let originalImage = null;
 
 let originalWidth = 0;
