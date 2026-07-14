@@ -102,7 +102,8 @@ function(e){
 
             preview.style.display =
             "block";
-
+originalSize.textContent =
+(file.size / 1024).toFixed(2) + " KB";
 
         };
 
