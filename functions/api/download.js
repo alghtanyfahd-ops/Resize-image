@@ -1,18 +1,43 @@
-export async function onRequest(context) {
+export async function onRequestPost(context) {
 
-    if (context.request.method !== "POST") {
-        return new Response("Method Not Allowed", {
-            status: 405
-        });
-    }
+    try {
 
-    const image = await context.request.arrayBuffer();
+        const image = await context.request.text();
 
-    return new Response(image, {
-        headers: {
-            "Content-Type": "image/jpeg",
-            "Content-Disposition": 'attachment; filename="resized-image.jpg"'
+        if (!image) {
+            return new Response("No image", {
+                status: 400
+            });
         }
-    });
+
+        const base64 = image.replace(/^data:image\/\w+;base64,/, "");
+
+        const binary = Uint8Array.from(
+            atob(base64),
+            c => c.charCodeAt(0)
+        );
+
+        return new Response(binary, {
+
+            headers: {
+
+                "Content-Type": "image/jpeg",
+
+                "Content-Disposition":
+                'attachment; filename="resized-image.jpg"',
+
+                "Cache-Control":"no-store"
+
+            }
+
+        });
+
+    } catch (e) {
+
+        return new Response(e.message,{
+            status:500
+        });
+
+    }
 
 }
