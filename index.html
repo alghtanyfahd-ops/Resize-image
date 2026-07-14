@@ -135,72 +135,49 @@
 
     </section>
 
-    <section class="card">
+<section class="card">
 
-        <h2>Download</h2>
+    <h2>Download</h2>
 
-        <canvas
-            id="canvas"
-            style="display:none;"></canvas>
+    <canvas
+        id="canvas"
+        style="display:none;">
+    </canvas>
 
-        <button
-            id="downloadBtn"
-            disabled>
-<label>Image Format</label>
+    <label>Image Format</label>
 
-<select id="imageFormat">
+    <select id="imageFormat">
+        <option value="image/jpeg">JPG</option>
+        <option value="image/png">PNG</option>
+        <option value="image/webp">WEBP</option>
+    </select>
 
-    <option value="image/jpeg">
-        JPG
-    </option>
+    <label>Quality</label>
 
-    <option value="image/png">
-        PNG
-    </option>
+    <input
+        type="range"
+        id="quality"
+        min="10"
+        max="100"
+        value="90">
 
-    <option value="image/webp">
-        WEBP
-    </option>
+    <div id="qualityValue">90%</div>
 
-</select>
+    <div id="imageInfo">
+        Original Size:
+        <span id="originalSize">0 KB</span>
+        <br>
+        New Size:
+        <span id="newSize">0 KB</span>
+    </div>
 
+    <button id="downloadBtn" disabled>
+        Download Image
+    </button>
 
-<label>Quality</label>
-
-<input
-type="range"
-id="quality"
-min="10"
-max="100"
-value="90">
-
-<div id="qualityValue">
-90%
-</div>
-
-
-<div id="imageInfo">
-
-    Original Size:
-    <span id="originalSize">
-        0 KB
-    </span>
-
-    <br>
-
-    New Size:
-    <span id="newSize">
-        0 KB
-    </span>
-
-</div>
-<button id="downloadBtn">
-    Download Image
-</button>
-
-<button id="proDownloadBtn">
-    Download Pro
-</button>
+    <button id="proDownloadBtn">
+        Download Pro
+    </button>
 
 </section>
 
