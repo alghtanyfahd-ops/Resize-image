@@ -118,7 +118,12 @@ function(e){
 
 
 });
+quality.addEventListener("input", function () {
 
+    qualityValue.textContent =
+    quality.value + "%";
+
+});
 
 
 // تغيير العرض مع الحفاظ على النسبة
