@@ -1,3 +1,4 @@
+let resizedBlob = null;
 let originalImage = null;
 
 let originalWidth = 0;
