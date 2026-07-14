@@ -321,3 +321,15 @@ window.enterApp = function(){
     }
 
 };
+const proDownloadBtn =
+document.getElementById("proDownloadBtn");
+
+if (proDownloadBtn) {
+
+    proDownloadBtn.addEventListener("click", function () {
+
+        alert("Download Pro is under development.");
+
+    });
+
+}
