@@ -27,8 +27,20 @@ document.getElementById("resizeBtn");
 const canvas =
 document.getElementById("canvas");
 
-const downloadBtn =
-document.getElementById("downloadBtn");
+const imageFormat =
+document.getElementById("imageFormat");
+
+const quality =
+document.getElementById("quality");
+
+const qualityValue =
+document.getElementById("qualityValue");
+
+const originalSize =
+document.getElementById("originalSize");
+
+const newSize =
+document.getElementById("newSize");
 
 
 
