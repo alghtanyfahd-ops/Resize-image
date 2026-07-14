@@ -233,11 +233,31 @@ function(){
 
 downloadBtn.addEventListener("click", function () {
 
-    const dataUrl = canvas.toDataURL("image/jpeg",0.9);
-    const win = window.open(dataUrl, "_blank");
-    if(!win){
-      location.href=dataUrl;
-    }
+    canvas.toBlob(function(blob){
+
+        if(!blob){
+            alert("Unable to create image.");
+            return;
+        }
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "resized-image.jpg";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        setTimeout(function(){
+            URL.revokeObjectURL(url);
+        },1000);
+
+    },"image/jpeg",0.9);
 
 });
 
