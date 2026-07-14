@@ -221,11 +221,13 @@ function(){
     false;
 
 
-    preview.src =
-    canvas.toDataURL(
-        "image/jpeg",
-        0.9
-    );
+canvas.toBlob(function(blob){
+
+    resizedBlob = blob;
+
+    preview.src = URL.createObjectURL(blob);
+
+}, "image/jpeg", 0.9);
 
 
 });
