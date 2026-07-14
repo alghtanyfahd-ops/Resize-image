@@ -236,48 +236,60 @@ canvas.toBlob(function(blob){
 
 downloadBtn.addEventListener("click", async function () {
 
-    if (!canvas.width || !canvas.height) {
+    if (!resizedBlob) {
         alert("Please resize the image first");
         return;
     }
 
-    canvas.toBlob(async function(blob) {
+    const file = new File(
+        [resizedBlob],
+        "resized-image.jpg",
+        { type: "image/jpeg" }
+    );
+
+    // للأجهزة التي تدعم المشاركة (Android)
+    if (
+        navigator.canShare &&
+        navigator.canShare({ files: [file] })
+    ) {
 
         try {
 
-            const response = await fetch("/api/download", {
-                method: "POST",
-                body: blob
+            await navigator.share({
+                title: "Resize Image",
+                text: "Resized Image",
+                files: [file]
             });
 
-            if (!response.ok) {
-                throw new Error("Download failed");
-            }
+            return;
 
-            const fileBlob = await response.blob();
+        } catch (e) {
 
-            const url = URL.createObjectURL(fileBlob);
-
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "resized-image.jpg";
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(url);
-
-        } catch (err) {
-
-            console.error(err);
-            alert("Download failed");
+            console.log(e);
 
         }
 
-    }, "image/jpeg", 0.9);
+    }
+
+    // للكمبيوتر
+
+    const url = URL.createObjectURL(resizedBlob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "resized-image.jpg";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
 
 });
+
 
 
 window.enterApp = function(){
