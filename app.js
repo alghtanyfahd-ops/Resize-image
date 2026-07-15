@@ -321,3 +321,212 @@ window.enterApp = function(){
     }
 
 };
+// ===============================
+// Images To PDF
+// ===============================
+
+const pdfImagesInput =
+document.getElementById("pdfImagesInput");
+
+const pdfPreview =
+document.getElementById("pdfPreview");
+
+const convertPdfBtn =
+document.getElementById("convertPdfBtn");
+
+
+let pdfImages = [];
+
+
+// اختيار عدة صور
+
+if(pdfImagesInput){
+
+pdfImagesInput.addEventListener(
+"change",
+function(e){
+
+
+    pdfImages = [];
+
+    pdfPreview.innerHTML = "";
+
+
+    const files =
+    Array.from(e.target.files);
+
+
+
+    files.forEach(function(file){
+
+
+        if(!file.type.startsWith("image/")){
+            return;
+        }
+
+
+        pdfImages.push(file);
+
+
+
+        const reader =
+        new FileReader();
+
+
+        reader.onload =
+        function(event){
+
+
+            const img =
+            document.createElement("img");
+
+
+            img.src =
+            event.target.result;
+
+
+            img.style.width =
+            "120px";
+
+
+            img.style.margin =
+            "5px";
+
+
+            img.style.borderRadius =
+            "8px";
+
+
+            pdfPreview.appendChild(img);
+
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+
+    });
+
+
+});
+
+}
+
+
+
+// تحويل الصور إلى PDF
+
+if(convertPdfBtn){
+
+convertPdfBtn.addEventListener(
+"click",
+async function(){
+
+
+    if(pdfImages.length === 0){
+
+        alert("Please select images first");
+        return;
+
+    }
+
+
+
+    const formData =
+    new FormData();
+
+
+
+    pdfImages.forEach(function(image){
+
+        formData.append(
+            "images",
+            image
+        );
+
+    });
+
+
+
+    try{
+
+
+        const response =
+        await fetch("/api/images-to-pdf",{
+
+            method:"POST",
+
+            body:formData
+
+        });
+
+
+
+        if(!response.ok){
+
+            throw new Error(
+            "PDF creation failed"
+            );
+
+        }
+
+
+
+        const blob =
+        await response.blob();
+
+
+
+        const url =
+        URL.createObjectURL(blob);
+
+
+
+        const a =
+        document.createElement("a");
+
+
+        a.href =
+        url;
+
+
+        a.download =
+        "images.pdf";
+
+
+        document.body.appendChild(a);
+
+
+        a.click();
+
+
+        document.body.removeChild(a);
+
+
+
+        setTimeout(()=>{
+
+            URL.revokeObjectURL(url);
+
+        },1000);
+
+
+
+    }
+    catch(error){
+
+
+        console.error(error);
+
+        alert(
+        "PDF conversion failed"
+        );
+
+
+    }
+
+
+});
+
+}
