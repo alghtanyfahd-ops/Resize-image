@@ -1,67 +1,122 @@
-const imageInput =
-document.getElementById("imageInput");
+const pdfImageInput =
+document.getElementById("pdfImageInput");
 
-const preview =
-document.getElementById("preview");
 
-let images = [];
+const pdfPreview =
+document.getElementById("pdfPreview");
 
-imageInput.addEventListener(
-    "change",
-    function(e){
 
-        preview.innerHTML = "";
+const pdfButton =
+document.getElementById("convertPdfBtn");
 
-        images = [];
 
-        Array.from(
-            e.target.files
-        ).forEach(file=>{
+let pdfImages = [];
 
-            const reader =
-            new FileReader();
 
-            reader.onload =
-            function(event){
 
-                images.push(
-                    event.target.result
-                );
+if(pdfImageInput){
 
-                const item =
-                document.createElement("div");
 
-                item.className =
-                "preview-item";
+pdfImageInput.addEventListener(
+"change",
+function(e){
 
-                item.innerHTML =
-                `<img src="${event.target.result}">`;
 
-                preview.appendChild(item);
+    pdfPreview.innerHTML = "";
 
-            };
+    pdfImages = [];
 
-            reader.readAsDataURL(file);
 
-        });
+    Array.from(e.target.files)
+    .forEach(file=>{
 
-    }
+
+        const reader =
+        new FileReader();
+
+
+        reader.onload =
+        function(event){
+
+
+            pdfImages.push(
+                event.target.result
+            );
+
+
+            const img =
+            document.createElement("img");
+
+
+            img.src =
+            event.target.result;
+
+
+            img.style.width =
+            "120px";
+
+
+            img.style.margin =
+            "5px";
+
+
+            img.className =
+            "pdf-preview-image";
+
+
+            pdfPreview.appendChild(img);
+
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+
+    });
+
+
+});
+
+}
+
+
+
+
+if(pdfButton){
+
+
+pdfButton.addEventListener(
+"click",
+createPDF
 );
+
+
+}
+
+
 
 async function createPDF(){
 
-    if(images.length===0){
+
+    if(pdfImages.length===0){
+
 
         alert(
-            "Please select images first."
+        "Please select images first."
         );
+
 
         return;
 
     }
 
+
+
     const { jsPDF } =
     window.jspdf;
+
+
 
     const pdf =
     new jsPDF(
@@ -70,7 +125,14 @@ async function createPDF(){
         "a4"
     );
 
-    for(let i=0;i<images.length;i++){
+
+
+    for(
+        let i=0;
+        i<pdfImages.length;
+        i++
+    ){
+
 
         if(i>0){
 
@@ -78,48 +140,73 @@ async function createPDF(){
 
         }
 
+
+
         const img =
         new Image();
 
+
         img.src =
-        images[i];
+        pdfImages[i];
+
+
 
         await new Promise(resolve=>{
+
 
             img.onload =
             resolve;
 
+
         });
+
+
 
         const pageWidth =
         pdf.internal.pageSize.getWidth();
 
+
+
         const pageHeight =
         pdf.internal.pageSize.getHeight();
+
+
 
         let width =
         img.width;
 
+
         let height =
         img.height;
 
+
+
         const ratio =
         Math.min(
-            pageWidth/width,
-            pageHeight/height
+            pageWidth / width,
+            pageHeight / height
         );
 
+
+
         width *= ratio;
+
         height *= ratio;
+
+
 
         const x =
         (pageWidth-width)/2;
 
+
+
         const y =
         (pageHeight-height)/2;
 
+
+
         pdf.addImage(
-            images[i],
+            pdfImages[i],
             "JPEG",
             x,
             y,
@@ -127,10 +214,14 @@ async function createPDF(){
             height
         );
 
+
     }
+
+
 
     pdf.save(
         "images-to-pdf.pdf"
     );
+
 
 }
