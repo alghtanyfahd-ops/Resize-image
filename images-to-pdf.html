@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Images to PDF</title>
+
+<link rel="stylesheet" href="images-to-pdf.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🖼️ Images to PDF</h1>
+
+<p>Select one or more images and convert them into a PDF.</p>
+
+<input
+type="file"
+id="imageInput"
+accept="image/*"
+multiple
+>
+
+<div id="preview"></div>
+
+<button onclick="createPDF()">
+
+📄 Convert to PDF
+
+</button>
+
+</div>
+
+<script src="images-to-pdf.js"></script>
+
+</body>
+</html>
