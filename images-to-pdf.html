@@ -14,32 +14,50 @@
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-<h1>🖼️ Images to PDF</h1>
 
-<p>Select one or more images and convert them into a PDF.</p>
+<h1>📄 Images to PDF</h1>
+
+
+<p>
+Select one or more images and convert them into a PDF.
+</p>
+
+
 
 <input
 type="file"
-id="imageInput"
+id="pdfImageInput"
 accept="image/*"
 multiple
 >
 
-<div id="preview"></div>
 
-<button onclick="createPDF()">
 
-📄 Convert to PDF
+<div id="pdfPreview"></div>
+
+
+
+<button id="convertPdfBtn">
+
+📄 Convert Images to PDF
 
 </button>
 
+
+
 </div>
+
+
 
 <script src="images-to-pdf.js"></script>
 
+
 </body>
+
 </html>
